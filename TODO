@@ -1,0 +1,28 @@
+☐ Crear un entorno virtual
+python3 -m venv venv
+
+☐ Install FastAPI
+pip install "fastapi[standard]"
+
+☐ Install Uvicorn
+pip install 'uvicorn[standard]'
+
+☐ Install flake8 para revisar errores de estilo
+pip install flake8
+
+☐ Prueba de flake8
+flake8 main.py
+
+☐ Crear el archivo principal de la aplicacion
+pip freeze > requirements.txt
+
+☐ Compandos
+☐ pip para ver los paquetes instalados
+pip list
+
+☐ Version de uvicorn version minima
+pip install 'uvicorn[standard]'
+
+☐ Docker
+docker build -t todolist .
+docker run -d -p 8000:8000 todolist
