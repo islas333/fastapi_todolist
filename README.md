@@ -42,6 +42,9 @@ Para ejecutar el linter Flake8, y garantizar que el codigo cumpla con la caracte
 ```bash
 flake8 todolist/main.py
 ```
+[flake8]
+max-line-length = 88
+ignore = E203, E266, E501, W503
 
 # Test en local
 Para ejecutar los test, se debe ejecutar el siguiente comando en la terminal.
