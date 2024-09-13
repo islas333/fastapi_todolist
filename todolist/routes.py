@@ -8,7 +8,7 @@ router = APIRouter()
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-MOCK_DATA_FILE = os.path.join(current_dir, 'data', 'MOCK_DATA.json')
+MOCK_DATA_FILE = os.path.join(current_dir, "data", "MOCK_DATA.json")
 with open(MOCK_DATA_FILE) as f:
     MOCK_DATA = json.load(f)
 

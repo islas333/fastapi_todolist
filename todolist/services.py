@@ -6,7 +6,7 @@ from .models import Task
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-MOCK_DATA_FILE = os.path.join(current_dir, 'data', 'MOCK_DATA.json')
+MOCK_DATA_FILE = os.path.join(current_dir, "data", "MOCK_DATA.json")
 with open(MOCK_DATA_FILE) as f:
     MOCK_DATA = json.load(f)
 
@@ -16,15 +16,19 @@ def get_tasks(skip: int = 0, limit: int = 10):
     if not MOCK_DATA or len(MOCK_DATA) == 0:
         raise HTTPException(status_code=404, detail="Tarea no encontrados")
     if skip < 0:
-        raise HTTPException(status_code=400, detail="El índice de inicio debe ser mayor o igual a 0")
+        raise HTTPException(
+            status_code=400, detail="El índice de inicio debe ser mayor o igual a 0"
+        )
     if limit > len(MOCK_DATA):
-        raise HTTPException(status_code=400, detail="El límite es mayor al total de datos")
+        raise HTTPException(
+            status_code=400, detail="El límite es mayor al total de datos"
+        )
     total = len(MOCK_DATA)
     return {
         "total_data": total,
         "elemento_ini": skip,
         "elemento_fin": skip + limit - 1,
-        "data": MOCK_DATA[skip : skip + limit]
+        "data": MOCK_DATA[skip : skip + limit],
     }
 
 
@@ -37,9 +41,9 @@ def create_task(task: Task):
     new_task = task.model_copy(update={"id": new_id})
 
     MOCK_DATA.append(new_task.model_dump())
-    with open(MOCK_DATA_FILE, 'w') as f:
+    with open(MOCK_DATA_FILE, "w") as f:
         json.dump(MOCK_DATA, f)
-    return {"message": f'Tarea creada satisfactoriamente: id={new_id}'}
+    return {"message": f"Tarea creada satisfactoriamente: id={new_id}"}
 
 
 # @router.get("/tasks/{task_id}") --
@@ -57,10 +61,10 @@ def update_task(task_id: int, task: Task):
         raise HTTPException(status_code=404, detail="Tarea no encontrada")
     index = MOCK_DATA.index(find_task[0])
     MOCK_DATA[index] = task.model_dump()
-    MOCK_DATA[index]['id'] = find_task[0]['id']
-    with open(MOCK_DATA_FILE, 'w') as f:
+    MOCK_DATA[index]["id"] = find_task[0]["id"]
+    with open(MOCK_DATA_FILE, "w") as f:
         json.dump(MOCK_DATA, f)
-    return {"message": f'Tarea actualizada satisfactoriamente: id={find_task[0]['id']}'}
+    return {"message": f"Tarea actualizada satisfactoriamente: id={find_task[0]['id']}"}
 
 
 # @router.delete("/tasks/{task_id}") --
@@ -69,6 +73,6 @@ def delete_task(task_id: int):
     if not find_task:
         raise HTTPException(status_code=404, detail="Tarea no encontrada")
     MOCK_DATA.remove(find_task[0])
-    with open(MOCK_DATA_FILE, 'w') as f:
+    with open(MOCK_DATA_FILE, "w") as f:
         json.dump(MOCK_DATA, f)
-    return {"message": f'Tarea eliminada satisfactoriamente: id={find_task[0]['id']}'}
+    return {"message": f"Tarea eliminada satisfactoriamente: id={find_task[0]['id']}"}
